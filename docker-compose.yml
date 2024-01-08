@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  ispyagentdvr:
+    image: mekayelanik/ispyagentdvr:latest
+    container_name: ispyagentdvr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
+    volumes:
+      - agentdvr-config:/AgentDVR/Media/XML
+      - agentdvr-recordings:/AgentDVR/Media/WebServerRoot/Media
+      - agentdvr-commands:/AgentDVR/Commands
+    ports:
+      - 8090:8090
+      - 3478:3478/udp
+      - 50000-50010:50000-50010/udp
+    restart: unless-stopped
+
+volumes:
+  agentdvr-config:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=${NFS_SERVER},rw"
+      device: ":${NFS_SHARE_PATH}"
+  agentdvr-recordings:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=${NFS_SERVER},rw"
+      device: ":${NFS_SHARE_PATH}"
+  agentdvr-commands:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=${NFS_SERVER},rw"
+      device: ":${NFS_SHARE_PATH}"

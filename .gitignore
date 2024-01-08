@@ -1,0 +1,23 @@
+# Docker
+*.log
+docker-compose.override.yml
+
+# Docker data directories
+data/
+
+# Docker env files
+*.env
+
+# Ignore Docker SSL certificates
+*.crt
+*.key
+
+# Ignore Dockerfile builds
+**/Dockerfile
+**/Dockerfile.*
+
+# Ignore .docker directory
+.docker/
+
+# Ignore .dockerignore
+.dockerignore
